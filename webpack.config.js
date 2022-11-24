@@ -24,5 +24,12 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'build'),
+    publicPath:'/build/',
+  },
+  devServer:{
+    liveReload:true,
+    static: {
+      directory: path.join(__dirname, '/build')
+    }
   },
 };

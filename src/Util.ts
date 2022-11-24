@@ -1,4 +1,4 @@
-import { glMatrix, mat4, vec3 } from "gl-matrix";
+import { glMatrix, mat4, vec3, vec2 } from "gl-matrix";
 
 export function compileShader(
 	gl: WebGL2RenderingContext,
@@ -32,18 +32,25 @@ function compileSource(
 	return shader;
 }
 
-export function setUniforms(gl: WebGL2RenderingContext,program:WebGLProgram, uniforms:{[name:string]:vec3 | mat4 | number}) {
+export function setUniforms(gl: WebGL2RenderingContext,program:WebGLProgram, uniforms:{[name:string]:vec2 | vec3 | mat4 | number}) {
     for(var name in uniforms) {
         
       var value = uniforms[name];
       var location = gl.getUniformLocation(program, name);
       if(location == null) continue;
       if(value instanceof Array) {
-        if(value.length==3){
-            gl.uniform3fv(location, value);
-        } else{
-            gl.uniformMatrix4fv(location, false, value);
-        }
+		let length=value.length;
+			switch(length){
+				case 2:
+					gl.uniform2fv(location, value);
+				break;
+				case 3:
+					gl.uniform3fv(location, value);
+				break;
+				case 16:
+					gl.uniformMatrix4fv(location, false, value);
+				break;
+			}
       } else {
         gl.uniform1f(location, value as number);
       }

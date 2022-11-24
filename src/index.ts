@@ -15,16 +15,22 @@ function main() {
 			return;
 		}
 
-    let renderer=new Renderer(gl);
-    
-  setInterval(function(){tick(renderer)},1000/60);
+		let renderer = new Renderer(gl);
+
+		setInterval(function () {
+			tick(renderer);
+		}, 1000 / 60);
+
+		canvas.onmousemove = (event) => {
+			renderer.updateMouse(event.pageX, event.pageY);
+		};
 	}
 
-  return;
+	return;
 }
 
-export function tick (renderer:Renderer){
-  renderer.render();
+export function tick(renderer: Renderer) {
+	renderer.render();
 }
 
 window.onload = main;

@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/offscreencanvas": "^2019.7.0",
     "gl-matrix": "^3.4.3",
     "npx": "^10.2.2",
     "raw-loader": "^4.0.2",
